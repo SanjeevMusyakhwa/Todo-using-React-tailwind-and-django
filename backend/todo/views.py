@@ -25,9 +25,8 @@ def todo_create(request):
 @api_view(['DELETE'])
 def todo_delete(request, pk):
     try:
-        todo = Todo.objects.get(id=pk)  # Try to find the Todo with the given ID
+        todo = Todo.objects.get(pk=pk)  # Find the todo by its ID
+        todo.delete()  # Delete the todo item
+        return Response(status=status.HTTP_204_NO_CONTENT)  # Return a 204 No Content status
     except Todo.DoesNotExist:
-        return Response({"error": "Todo not found."}, status=status.HTTP_404_NOT_FOUND)
-
-    todo.delete()  # Delete the Todo object
-    return Response({"message": "Todo deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'error': 'Todo not found'}, status=status.HTTP_404_NOT_FOUND)

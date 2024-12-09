@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react"
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
-import todo from '../assets/todo.png'
+import todo from '../assets/todo.png';
 import Todoitems from "./Todoitems";
 
 export default function Todo() {
-
-  const [task, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
-  // Fetch tasks when the component mounts
+  // Fetch existing tasks when the component mounts
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/todos/');
-        setTasks(response.data); // Update state with fetched tasks
+        setTasks(response.data);  // Update state with fetched tasks
       } catch (error) {
-        console.log("error fetching tasks", error);
+        console.log("Error fetching tasks", error);
       }
     };
+
     fetchTasks();
   }, []);
 
@@ -30,11 +30,11 @@ export default function Todo() {
           title: inputValue,
           completed: false
         });
-        setTasks([...task, response.data]); // Add the new task to the task list
-        setInputValue(''); // Clear the input field
+        setTasks([...tasks, response.data]);  // Add the new task to the tasks list
+        setInputValue('');  // Clear the input field
       }
     } catch (error) {
-      console.log("error", error)
+      console.log("Error adding task", error);
     }
   };
 
@@ -70,7 +70,7 @@ export default function Todo() {
 
         <div>
           {/* Pass tasks as props to Todoitems */}
-          <Todoitems tasks={task} />
+          <Todoitems tasks={tasks} setTasks={setTasks} />
         </div>
       </div>
     </>
