@@ -1,10 +1,16 @@
 import React from "react";
 import Navbar from "./components/Navbar";
+import Todo from "./components/Todo";
 export default function App() {
   return (
     <>
-      <div className="bg-gray-950 min-h-screen w-11/12">
-        <Navbar />
+      <div className="bg-stone-700 grid min-h-screen">
+        <div>
+          <Navbar />
+        </div>
+        <div>
+        <Todo />
+        </div>
       </div>
     </>
   )
